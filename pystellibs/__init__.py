@@ -8,5 +8,7 @@ from .kurucz import Kurucz
 from .munari import Munari
 from .btsettl import BTSettl
 from .marcs import Marcs
+from .phoenix import Phoenix
+from .bosz import Bosz
 from .simpletable import SimpleTable
 from .ezunits import unit
