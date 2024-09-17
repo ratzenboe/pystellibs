@@ -11,8 +11,8 @@ from .config import libsdir
 
 class Bosz(Stellib):
 
-    def __init__(self, R,*args, **kwargs):
-        self.name = 'BOSZ_R{:.0f}'.format(R)
+    def __init__(self, R,v,*args, **kwargs):
+        self.name = 'BOSZ_R{:.0f}_v{:.0f}'.format(R,v)
         self.source = libsdir+ "/"
         self._load_()
         Stellib.__init__(self, *args, **kwargs)
