@@ -1,3 +1,4 @@
 build/
 pystellibs.egg-info/
 *.npy
+!Koester*.npy
