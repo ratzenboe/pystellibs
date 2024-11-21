@@ -10,5 +10,6 @@ from .btsettl import BTSettl
 from .marcs import Marcs
 from .phoenix import Phoenix
 from .bosz import Bosz
+from .koester import Koester
 from .simpletable import SimpleTable
 from .ezunits import unit
