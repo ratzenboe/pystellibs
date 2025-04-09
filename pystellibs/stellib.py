@@ -48,7 +48,8 @@ class Stellib(object):
         """ Contructor """
         self.interpolator = find_interpolator(
                 kwargs.pop('interpolator', None),
-                osl=self)
+                osl=self
+        )
         if self.interpolator is None:
             self.interpolator = _default_interpolator(self)
         if not hasattr(self, 'wavelength_unit'):
@@ -254,15 +255,15 @@ class Stellib(object):
 
         return specs
 
-    def generate_individual_spectra(self, stars, **kwargs):
+    def generate_individual_spectra(self, logT, logg, logL, Z, **kwargs):
         """ Generates individual spectra for the given stars and stellar library
 
         Returns NaN spectra if the boundary conditions are not met (no extrapolation)
 
         Parameters
         ----------
-        stars: Table
-            contains at least (logT, logg, logL, Z) of the considered stars
+        logT, logg, logL, Z: np.ndarray
+            numpy 1D arrays containing logT, logg, logL and Z, repectively
 
         dlogT: float
             margin in logT
@@ -283,7 +284,6 @@ class Stellib(object):
         null_value = kwargs.pop('null', np.nan)
         dlogT = kwargs.pop('dlogT', self._dlogT)
         dlogg = kwargs.pop('dlogg', self._dlogg)
-        logT, logg, logL, Z = stars['logT'], stars['logg'], stars['logL'], stars['Z']
         ndata = len(logT)
 
         # weights to apply during the interpolation (note that radii must be in cm)
@@ -291,8 +291,10 @@ class Stellib(object):
 
         # check boundary conditions, keep the data but do not compute the sed
         # if outside
-        bound = self.points_inside(np.array([logT, logg]).T, 
-                dlogT=dlogT, dlogg=dlogg)
+        bound = self.points_inside(
+            np.array([logT, logg]).T,
+            dlogT=dlogT, dlogg=dlogg
+        )
         specs = np.empty((ndata, len(self._wavelength)), dtype=float)
         specs[~bound] = np.full(len(self.wavelength), null_value)
 
